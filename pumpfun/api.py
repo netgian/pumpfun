@@ -9,7 +9,7 @@ def hello_world() -> str:
     )
 
 
-def health_check() -> dict:
+def get_health() -> dict:
     """Check the health of the API."""
     return client.request(
         method="GET",
@@ -653,6 +653,960 @@ def get_vanity_key(captcha_token: str) -> dict:
         params={
             "captchaToken": captcha_token
         }
+    )
+
+
+def get_random_mint_public_key() -> dict:
+    """Get a random mint public key."""
+    return client.request(
+        method="GET",
+        endpoint="/vanity/random-mint-public-key"
+    )
+
+
+def get_current_metas() -> dict:
+    """Get current metas."""
+    return client.request(
+        method="GET",
+        endpoint="/metas/current"
+    )
+
+
+def search_metas(meta: str, include_nsfw: bool) -> dict:
+    """Search metas with the specified meta and include NSFW flag."""
+    return client.request(
+        method="GET",
+        endpoint="/metas/search",
+        params={
+            "meta": meta,
+            "includeNsfw": str(include_nsfw).lower()
+        }
+    )
+
+
+# def post_reply(data: dict) -> dict:
+#     """Post a reply with the specified data."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/replies",
+#         json=data
+#     )
+
+
+def get_replies(limit: int, offset: int) -> dict:
+    """Get replies with the specified limit and offset."""
+    return client.request(
+        method="GET",
+        endpoint="/replies",
+        params={
+            "limit": limit,
+            "offset": offset
+        }
+    )
+
+
+def get_banned_replies() -> dict:
+    """Get banned replies."""
+    return client.request(
+        method="GET",
+        endpoint="/replies/ban"
+    )
+
+
+def get_protected_replies(limit: str, offset: str, sort_by: str, order: str, address: str,search_query: str,
+                          search_ca: str, search_ua: str, hidden: str, banned: str, from_date: str, to_date: str,
+                          has_image: str, is_scam: str, is_spam: str) -> dict:
+    """Get protected replies with specified query parameters."""
+    return client.request(
+        method="GET",
+        endpoint="/replies/protected-replies",
+        params={
+            "limit": limit,
+            "offset": offset,
+            "sortBy": sort_by,
+            "order": order,
+            "address": address,
+            "searchQuery": search_query,
+            "searchCA": search_ca,
+            "searchUA": search_ua,
+            "hidden": hidden,
+            "banned": banned,
+            "fromDate": from_date,
+            "toDate": to_date,
+            "hasImage": has_image,
+            "isScam": is_scam,
+            "isSpam": is_spam
+        }
+    )
+
+
+def get_replies_by_mint(mint: str, limit: int, offset: int, user: str, reverse_order: bool) -> dict:
+    """Get replies for a specific mint with specified query parameters."""
+    return client.request(
+        method="GET",
+        endpoint=f"/replies/{mint}",
+        params={
+            "limit": limit,
+            "offset": offset,
+            "user": user,
+            "reverseOrder": str(reverse_order).lower()
+        }
+    )
+
+
+# def post_replies_by_mints(data: dict) -> dict:
+#     """Post replies for multiple mints with the specified data."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/replies/mints",
+#         json=data
+#     )
+
+
+def get_user_replies(address: str, limit: int, offset: int) -> dict:
+    """Get replies for a specific user address with specified query parameters."""
+    return client.request(
+        method="GET",
+        endpoint=f"/replies/user-replies/{address}",
+        params={
+            "limit": limit,
+            "offset": offset
+        }
+    )
+
+
+def is_origin_of_reply_banned(identification: int) -> dict:
+    """Check if the origin of a reply is banned by ID."""
+    return client.request(
+        method="GET",
+        endpoint=f"/replies/is-origin-of-reply-banned/{identification}"
+    )
+
+
+# def post_experimental_replies(data: dict) -> dict:
+#     """Post experimental replies with the specified data."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/replies/experimental",
+#         json=data
+#     )
+
+
+def get_notifications(limit: int, offset: int) -> dict:
+    """Get notifications with the specified limit and offset."""
+    return client.request(
+        method="GET",
+        endpoint="/notifications",
+        params={
+            "limit": limit,
+            "offset": offset
+        }
+    )
+
+
+def search_users(search_term: str, offset: int, limit: int, sort: str, order: str) -> dict:
+    """Search for users with the specified query parameters."""
+    return client.request(
+        method="GET",
+        endpoint="/users/search",
+        params={
+            "searchTerm": search_term,
+            "offset": offset,
+            "limit": limit,
+            "sort": sort,
+            "order": order
+        }
+    )
+
+
+# def post_users_batch(data: dict) -> dict:
+#     """Post a batch of users with the specified data."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/users/batch",
+#         json=data
+#     )
+
+
+def get_user_by_id(user_id: str) -> dict:
+    """Get a user by their ID."""
+    return client.request(
+        method="GET",
+        endpoint=f"/users/{user_id}"
+    )
+
+
+# def post_user_register(data: dict) -> dict:
+#     """Register a new user with the specified data."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/users/register",
+#         json=data
+#     )
+
+
+# def post_user(data: dict) -> dict:
+#     """Create a new user with the specified data."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/users",
+#         json=data
+#     )
+
+
+# def delete_users() -> dict:
+#     """Delete all users."""
+#     return client.request(
+#         method="DELETE",
+#         endpoint="/users"
+#     )
+
+
+def get_candlesticks(mint: str, offset: int, limit: int, timeframe: int) -> dict:
+    """Get candlesticks for a specific mint with specified query parameters."""
+    return client.request(
+        method="GET",
+        endpoint=f"/candlesticks/{mint}",
+        params={
+            "offset": offset,
+            "limit": limit,
+            "timeframe": timeframe
+        }
+    )
+
+
+def get_global_params(timestamp: int) -> dict:
+    """Get global parameters for a specific timestamp."""
+    return client.request(
+        method="GET",
+        endpoint=f"/global-params/{timestamp}"
+    )
+
+
+# def post_balances_index(data: dict) -> dict:
+#     """Post balances index with the specified data."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/balances/index",
+#         json=data
+#     )
+
+
+# def post_balances_index_all() -> dict:
+#     """Post balances index for all."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/balances/index-all"
+#     )
+
+
+def get_balances(address: str, offset: int, limit: int, min_balance: int) -> dict:
+    """Get balances for a specific address with specified query parameters."""
+    return client.request(
+        method="GET",
+        endpoint=f"/balances/{address}",
+        params={
+            "offset": offset,
+            "limit": limit,
+            "minBalance": min_balance
+        }
+    )
+
+
+# def post_likes(target_id: str) -> dict:
+#     """Post a like for a specific target ID."""
+#     return client.request(
+#         method="POST",
+#         endpoint=f"/likes/{target_id}"
+#     )
+
+
+# def delete_likes(target_id: str) -> dict:
+#     """Delete a like for a specific target ID."""
+#     return client.request(
+#         method="DELETE",
+#         endpoint=f"/likes/{target_id}"
+#     )
+
+
+def get_likes(target_id: str) -> dict:
+    """Get likes for a specific target ID."""
+    return client.request(
+        method="GET",
+        endpoint=f"/likes/{target_id}"
+    )
+
+
+# def post_send_transaction() -> dict:
+#     """Send a transaction."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/send-transaction"
+#     )
+
+
+# def post_check_signatures() -> dict:
+#     """Check signatures for a transaction."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/send-transaction/check-signatures"
+#     )
+
+
+def get_jito_tip_account() -> dict:
+    """Get the Jito tip account."""
+    return client.request(
+        method="GET",
+        endpoint="/send-transaction/jito-tip-account"
+    )
+
+
+# def post_following(user_id: str, captcha_token: str) -> dict:
+#     """Follow a user with the specified user ID and captcha token."""
+#     return client.request(
+#         method="POST",
+#         endpoint=f"/following/{user_id}",
+#         params={
+#             "captchaToken": captcha_token
+#         }
+#     )
+
+
+# def delete_following(user_id: str) -> dict:
+#     """Unfollow a user with the specified user ID."""
+#     return client.request(
+#         method="DELETE",
+#         endpoint=f"/following/{user_id}"
+#     )
+
+
+def get_following(user_id: str) -> dict:
+    """Get the following list for a specific user ID."""
+    return client.request(
+        method="GET",
+        endpoint=f"/following/{user_id}"
+    )
+
+
+# def post_following_v2(user_id: str) -> dict:
+#     """Follow a user with the specified user ID (version 2)."""
+#     return client.request(
+#         method="POST",
+#         endpoint=f"/following/v2/{user_id}"
+#     )
+
+
+def get_following_single(identification: str, user_id: str) -> dict:
+    """Get a single following entry by ID and user ID."""
+    return client.request(
+        method="GET",
+        endpoint=f"/following/single/{identification}",
+        params={
+            "userId": user_id
+        }
+    )
+
+
+def get_followers(identification: str) -> dict:
+    """Get the followers list for a specific user ID."""
+    return client.request(
+        method="GET",
+        endpoint=f"/following/followers/{identification}"
+    )
+
+
+def get_mutuals(identification: str) -> dict:
+    """Get the mutual followers list for a specific user ID."""
+    return client.request(
+        method="GET",
+        endpoint=f"/following/mutuals/{identification}"
+    )
+
+
+def get_timeline(user_id: str) -> dict:
+    """Get the timeline for a specific user ID."""
+    return client.request(
+        method="GET",
+        endpoint=f"/timeline/{user_id}"
+    )
+
+
+# def post_add_click(feed_id: str) -> dict:
+#     """Add a click to a specific feed by feed ID."""
+#     return client.request(
+#         method="POST",
+#         endpoint=f"/feed/add-click/{feed_id}"
+#     )
+
+
+# def post_add_load(feed_id: str) -> dict:
+#     """Add a load to a specific feed by feed ID."""
+#     return client.request(
+#         method="POST",
+#         endpoint=f"/feed/add-load/{feed_id}"
+#     )
+
+
+def get_livestreams(mint: str) -> dict:
+    """Get the livestreams for a specific mint."""
+    return client.request(
+        method="GET",
+        endpoint=f"/livestreams/{mint}"
+    )
+
+
+def get_livestreams_raw(mint: str) -> dict:
+    """Get the raw livestreams for a specific mint."""
+    return client.request(
+        method="GET",
+        endpoint=f"/livestreams/{mint}/raw"
+    )
+
+
+def get_livestreams_livekit_token_host(mint: str, creator: str) -> dict:
+    """Get the LiveKit token for a host for a specific mint and creator."""
+    return client.request(
+        method="GET",
+        endpoint="/livestreams/livekit/token/host",
+        params={
+            "mint": mint,
+            "creator": creator
+        }
+    )
+
+
+def get_livestreams_livekit_token_participant(mint: str, hidden: bool) -> dict:
+    """Get the LiveKit token for a participant for a specific mint and hidden status."""
+    return client.request(
+        method="GET",
+        endpoint="/livestreams/livekit/token/participant",
+        params={
+            "mint": mint,
+            "hidden": str(hidden).lower()
+        }
+    )
+
+
+# def post_livestreams_livekit_raise_hand(mint: str) -> dict:
+#     """Raise hand in a LiveKit livestream for a specific mint."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/livestreams/livekit/raise-hand",
+#         params={
+#             "mint": mint
+#         }
+#     )
+
+
+# def post_livestreams_livekit_invite_to_stage(mint: str) -> dict:
+#     """Invite to stage in a LiveKit livestream for a specific mint."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/livestreams/livekit/invite-to-stage",
+#         params={
+#             "mint": mint
+#         }
+#     )
+
+
+# def post_livestreams_livekit_remove_from_stage(mint: str) -> dict:
+#     """Remove from stage in a LiveKit livestream for a specific mint."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/livestreams/livekit/remove-from-stage",
+#         params={
+#             "mint": mint
+#         }
+#     )
+
+
+def get_livestreams_stream_livestream_token(creator: str) -> dict:
+    """Get the livestream token for a specific creator."""
+    return client.request(
+        method="GET",
+        endpoint="/livestreams/stream/livestream-token",
+        params={
+            "creator": creator
+        }
+    )
+
+
+def get_livestreams_stream_livechat_token(user_id: str) -> dict:
+    """Get the livechat token for a specific user ID."""
+    return client.request(
+        method="GET",
+        endpoint="/livestreams/stream/livechat-token",
+        params={
+            "userId": user_id
+        }
+    )
+
+
+# def post_livestreams_stream_livechat_channel(mint: str) -> dict:
+#     """Create a livechat channel for a specific mint."""
+#     return client.request(
+#         method="POST",
+#         endpoint=f"/livestreams/stream/livechat-channel/{mint}"
+#     )
+
+
+# def post_livestreams_create_livestream() -> dict:
+#     """Create a new livestream."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/livestreams/create-livestream",
+#         json={}
+#     )
+
+
+# def put_livestreams_update_livestream(data: dict) -> dict:
+#     """Update an existing livestream."""
+#     return client.request(
+#         method="PUT",
+#         endpoint="/livestreams/update-livestream",
+#         json=data
+#     )
+
+
+# def put_livestreams_disable_livestream(mint: str) -> dict:
+#     """Disable a livestream for a specific mint."""
+#     return client.request(
+#         method="PUT",
+#         endpoint=f"/livestreams/{mint}/disable-livestream"
+#     )
+
+
+# def put_livestreams_enable_livestream(mint: str) -> dict:
+#     """Enable a livestream for a specific mint."""
+#     return client.request(
+#         method="PUT",
+#         endpoint=f"/livestreams/{mint}/enable-livestream"
+#     )
+
+
+# def put_livestreams_unban_livestream(mint: str) -> dict:
+#     """Unban a livestream for a specific mint."""
+#     return client.request(
+#         method="PUT",
+#         endpoint=f"/livestreams/{mint}/unban-livestream"
+#     )
+
+
+# def put_livestreams_ban_livestream(mint: str) -> dict:
+#     """Ban a livestream for a specific mint."""
+#     return client.request(
+#         method="PUT",
+#         endpoint=f"/livestreams/{mint}/ban-livestream"
+#     )
+
+
+# def post_livestreams_call_webhook(x_signature: str) -> dict:
+#     """Call a webhook for livestreams with the specified x-signature."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/livestreams/call-webhook",
+#         headers={
+#             "x-signature": x_signature
+#         }
+#     )
+
+
+# def post_livestreams_livekit_webhook(authorization: str) -> dict:
+#     """Call a LiveKit webhook for livestreams with the specified authorization."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/livestreams/livekit-webhook",
+#         headers={
+#             "Authorization": authorization
+#         }
+#     )
+
+
+# def post_reports() -> dict:
+#     """Create a new report."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/reports",
+#         json={}
+#     )
+
+
+def get_reports(limit: int, offset: int, report_type: str, done: str, created_at_from: str, created_at_to: str, is_currently_live: str) -> dict:
+    """Get reports with specified query parameters."""
+    return client.request(
+        method="GET",
+        endpoint="/reports",
+        params={
+            "limit": limit,
+            "offset": offset,
+            "type": report_type,
+            "done": done,
+            "createdAtFrom": created_at_from,
+            "createdAtTo": created_at_to,
+            "isCurrentlyLive": is_currently_live
+        }
+    )
+
+
+# def post_reports_update() -> dict:
+#     """Update a report."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/reports/update",
+#         json={}
+#     )
+
+
+# def delete_report(report_id: str) -> dict:
+#     """Delete a report by its ID."""
+#     return client.request(
+#         method="DELETE",
+#         endpoint=f"/reports/{report_id}"
+#     )
+
+
+# def post_reports_report_comment(x_client_key: str) -> dict:
+#     """Report a comment with the specified client key."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/reports/reportComment",
+#         headers={
+#             "x-client-key": x_client_key
+#         }
+#     )
+
+
+# def post_captcha_score(captcha_token: str) -> dict:
+#     """Submit a captcha token and get the score."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/captcha-score",
+#         params={
+#             "captchaToken": captcha_token
+#         }
+#     )
+
+
+def get_pinata_health() -> dict:
+    """Check the health of the Pinata service."""
+    return client.request(
+        method="GET",
+        endpoint="/pinata-health/health"
+    )
+
+
+def get_pinata_upload_health() -> dict:
+    """Check the upload health of the Pinata service."""
+    return client.request(
+        method="GET",
+        endpoint="/pinata-health/upload-health"
+    )
+
+
+def get_pinata_download_health() -> dict:
+    """Check the download health of the Pinata service."""
+    return client.request(
+        method="GET",
+        endpoint="/pinata-health/download-health"
+    )
+
+
+# def post_activity_click() -> dict:
+#     """Register a click activity."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/activity/click"
+#     )
+
+
+# def post_activity_convert() -> dict:
+#     """Register a convert activity."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/activity/convert"
+#     )
+
+
+# def post_activity_seen() -> dict:
+#     """Register a seen activity."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/activity/seen",
+#         json={}
+#     )
+
+
+# def post_activity_click_advanced() -> dict:
+#     """Register an advanced click activity."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/activity/click-advanced"
+#     )
+
+
+# def post_activity_convert_advanced() -> dict:
+#     """Register an advanced convert activity."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/activity/convert-advanced"
+#     )
+
+
+# def post_activity_seen_advanced() -> dict:
+#     """Register an advanced seen activity."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/activity/seen-advanced",
+#         json={}
+#     )
+
+
+def get_era() -> dict:
+    """Get the current era."""
+    return client.request(
+        method="GET",
+        endpoint="/era"
+    )
+
+
+def get_eras() -> dict:
+    """Get all eras."""
+    return client.request(
+        method="GET",
+        endpoint="/eras"
+    )
+
+
+def get_meet() -> dict:
+    """Get the meet information."""
+    return client.request(
+        method="GET",
+        endpoint="/meet"
+    )
+
+
+# def post_meet_dismiss() -> dict:
+#     """Dismiss the meet."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/meet/dismiss"
+#     )
+
+
+# def post_meet_copy_email() -> dict:
+#     """Copy the meet email."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/meet/copy-email"
+#     )
+
+
+# def post_meet_join() -> dict:
+#     """Join the meet."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/meet/join"
+#     )
+
+
+# def post_meet_reset() -> dict:
+#     """Reset the meet."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/meet/reset"
+#     )
+
+
+# def post_meet_create_interviews() -> dict:
+#     """Create interviews for the meet."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/meet/create-interviews"
+#     )
+
+
+def get_meet_status(meet_id: str) -> dict:
+    """Get the status of a specific meet by meet ID."""
+    return client.request(
+        method="GET",
+        endpoint=f"/meet/{meet_id}/status"
+    )
+
+
+def get_intercom_hmac() -> dict:
+    """Get the HMAC for Intercom."""
+    return client.request(
+        method="GET",
+        endpoint="/intercom/hmac"
+    )
+
+
+def get_videos_signed_url(extension: str) -> dict:
+    """Get a signed URL for video upload."""
+    return client.request(
+        method="GET",
+        endpoint="/videos/get-signed-url",
+        params={
+            "extension": extension
+        }
+    )
+
+
+def get_videos_previews(filename: str) -> dict:
+    """Get previews for a video by filename."""
+    return client.request(
+        method="GET",
+        endpoint="/videos/get-previews",
+        params={
+            "filename": filename
+        }
+    )
+
+
+def get_token_generate_token_for_thread() -> dict:
+    """Generate a token for a thread."""
+    return client.request(
+        method="GET",
+        endpoint="/token/generateTokenForThread"
+    )
+
+
+# def post_ipfs_token_metadata() -> dict:
+#     """Post token metadata to IPFS."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/ipfs/token-metadata",
+#         json={}
+#     )
+
+
+# def post_ipfs_image() -> dict:
+#     """Post an image to IPFS."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/ipfs/image",
+#         json={}
+#     )
+
+
+# def post_bookmarks() -> dict:
+#     """Create a new bookmark."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/bookmarks",
+#         json={}
+#     )
+
+
+def get_bookmarks(with_preview_images: bool) -> dict:
+    """Get bookmarks with an option to include preview images."""
+    return client.request(
+        method="GET",
+        endpoint="/bookmarks",
+        params={
+            "withPreviewImages": str(with_preview_images).lower()
+        }
+    )
+
+
+def get_bookmarks_default(with_details: bool) -> dict:
+    """Get default bookmarks with an option to include details."""
+    return client.request(
+        method="GET",
+        endpoint="/bookmarks/default",
+        params={
+            "withDetails": str(with_details).lower()
+        }
+    )
+
+
+def get_bookmark_by_id(bookmark_id: str, with_details: bool) -> dict:
+    """Get a specific bookmark by ID with an option to include details."""
+    return client.request(
+        method="GET",
+        endpoint=f"/bookmarks/{bookmark_id}",
+        params={
+            "withDetails": str(with_details).lower()
+        }
+    )
+
+
+# def put_bookmark_by_id(bookmark_id: str) -> dict:
+#     """Update a specific bookmark by ID."""
+#     return client.request(
+#         method="PUT",
+#         endpoint=f"/bookmarks/{bookmark_id}"
+#     )
+
+
+# def delete_bookmark_by_id(bookmark_id: str) -> dict:
+#     """Delete a specific bookmark by ID."""
+#     return client.request(
+#         method="DELETE",
+#         endpoint=f"/bookmarks/{bookmark_id}"
+#     )
+
+
+# def post_bookmark_item(data: dict) -> dict:
+#     """Add a new bookmark item."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/bookmarks/items/add",
+#         json=data
+#     )
+
+
+# def post_bookmark_item_remove(data: dict) -> dict:
+#     """Remove a bookmark item."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/bookmarks/items/remove",
+#         json=data
+#     )
+
+
+# def post_default_bookmark_item(data: dict) -> dict:
+#     """Add a new default bookmark item."""
+#     return client.request(
+#         method="POST",
+#         endpoint="/bookmarks/default/items",
+#         json=data
+#     )
+
+
+# def post_bookmark_item_by_id(bookmark_id: str, data: dict) -> dict:
+#     """Add a new item to a specific bookmark by ID."""
+#     return client.request(
+#         method="POST",
+#         endpoint=f"/bookmarks/{bookmark_id}/items",
+#         json=data
+#     )
+
+
+def get_bookmark_item_by_id(item_id: str, with_users: bool) -> dict:
+    """Get a specific bookmark item by ID with an option to include users."""
+    return client.request(
+        method="GET",
+        endpoint=f"/bookmarks/items/{item_id}",
+        params={
+            "withUsers": str(with_users).lower()
+        }
+    )
+
+
+def delete_default_bookmark_item(item_id: str) -> dict:
+    """Delete a default bookmark item by ID."""
+    return client.request(
+        method="DELETE",
+        endpoint=f"/bookmarks/default/{item_id}"
+    )
+
+
+def delete_bookmark_item_by_id(bookmark_id: str, item_id: str) -> dict:
+    """Delete a specific item from a bookmark by bookmark ID and item ID."""
+    return client.request(
+        method="DELETE",
+        endpoint=f"/bookmarks/{bookmark_id}/{item_id}"
     )
 
 
