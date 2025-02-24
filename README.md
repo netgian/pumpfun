@@ -1,4 +1,4 @@
-# pump.fun API Wrapper for Python
+# pump.fun frontend API Wrapper for Python
 
 Pump Fun API Wrapper is a Python package designed to facilitate interaction with the [pump.fun frontend API](https://frontend-api.pump.fun/api). It provides a comprehensive set of functions for retrieving transaction data, managing user and coin information.
 
